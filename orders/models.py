@@ -21,9 +21,7 @@ class Order(models.Model):
     )
     customer = models.ForeignKey(
         Customer,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True
+        on_delete=models.DO_NOTHING,
     )
     status = models.PositiveSmallIntegerField(
         choices=ORDER_STATUSES,
@@ -41,14 +39,13 @@ class OrderDetail(models.Model):
     order = models.ForeignKey(
         Order,
         verbose_name=u'Order #',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='details'
     )
     pizza = models.ForeignKey(
         Pizza,
         verbose_name=u'Pizza',
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True
+        on_delete=models.DO_NOTHING,
     )
     size = models.PositiveSmallIntegerField(
         u'Size',

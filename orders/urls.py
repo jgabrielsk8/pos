@@ -5,13 +5,26 @@ from orders import views
 urlpatterns = [
     path(
         '',
-        views.OrderListView.as_view(),
+        views.OrderCreateListView.as_view({
+            'get': 'list',
+            'post': 'create'
+        }),
         name='list-orders'
     ),
 
     path(
-        '<int:pk>/details',
-        views.OrderDetailListView.as_view(),
-        name='order-details'
-    )
+        '<int:pk>',
+        views.OrderRetrieveView.as_view({
+            'get': 'retrieve'
+        }),
+        name='retrieve-order'
+    ),
+
+    path(
+        '<int:pk>/status',
+        views.OrderRetrieveStatusView.as_view({
+            'get': 'retrieve'
+        }),
+        name='retrieve-order-status'
+    ),
 ]
