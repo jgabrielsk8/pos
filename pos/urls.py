@@ -16,5 +16,10 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('pizzas/', include('pizzas.urls'))
+
+    path('pizzas/',
+         include(('pizzas.urls', 'pizzas'), namespace='pizzas')),
+
+    path('customers/',
+         include(('customers.urls', 'customers'), namespace='customers'))
 ]
