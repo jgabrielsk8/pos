@@ -5,14 +5,20 @@ from pizzas.models import Pizza
 
 
 class Order(models.Model):
+    RECEIVED = 1
+    IN_PROCESS = 2
+    OUT_FOR_DELIVERY = 3
+    DELIVERED = 4
     # Status 5 is for special cases where the customer was not home or
     # customer not satisfied with product.
+    RETURNED = 5
+
     ORDER_STATUSES = (
-        (1, 'Received'),
-        (2, 'In Process'),
-        (3, 'Out For Delivery'),
-        (4, 'Delivered'),
-        (5, 'Returned')
+        (RECEIVED, u'Received'),
+        (IN_PROCESS, u'In Process'),
+        (OUT_FOR_DELIVERY, u'Out For Delivery'),
+        (DELIVERED, u'Delivered'),
+        (RETURNED, u'Returned')
     )
     number = models.CharField(
         u'Order #',
@@ -30,17 +36,23 @@ class Order(models.Model):
 
 
 class OrderDetail(models.Model):
+    SMALL = 1
+    MEDIUM = 2
+    LARGE = 3
+    EXTRA_LARGE = 4
+
     PIZZA_SIZE = (
-        (1, 'Small'),
-        (2, 'Medium'),
-        (3, 'Large'),
-        (4, 'Extra Large'),
+        (SMALL, u'Small'),
+        (MEDIUM, u'Medium'),
+        (LARGE, u'Large'),
+        (EXTRA_LARGE, u'Extra Large'),
     )
+
     order = models.ForeignKey(
         Order,
         verbose_name=u'Order #',
         on_delete=models.CASCADE,
-        related_name='details'
+        related_name=u'details'
     )
     pizza = models.ForeignKey(
         Pizza,
