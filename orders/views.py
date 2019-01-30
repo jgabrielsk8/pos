@@ -18,6 +18,7 @@ class OrderCreateListView(viewsets.ModelViewSet):
     * for now, no authentication is required
     """
     queryset = Order.objects.all()
+    filter_fields = ('id', 'number', 'customer', 'status')
 
     def get_serializer_class(self):
         method = self.request.method
