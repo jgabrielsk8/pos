@@ -14,10 +14,11 @@ urlpatterns = [
 
     path(
         '<int:pk>',
-        views.OrderRetrieveView.as_view({
-            'get': 'retrieve'
+        views.OrderRetrieveDeleteView.as_view({
+            'get': 'retrieve',
+            'delete': 'destroy'
         }),
-        name='retrieve-order'
+        name='retrieve-delete-order'
     ),
 
     path(
