@@ -1,12 +1,13 @@
 import psycopg2
 import time
+import os
 
 params = {
-  'database': 'pos_db',
-  'user': 'pos_user',
-  'password': 'pos_pwd',
-  'host': 'pos-db',
-  'port': 5432
+  'database': os.environ.get('DB_NAME'),
+  'user': os.environ.get('DB_USER'),
+  'password': os.environ.get('DB_PWD'),
+  'host': os.environ.get('DB_HOST'),
+  'port': os.environ.get('DB_PORT')
 }
 
 conn = None
