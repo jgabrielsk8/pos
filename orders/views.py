@@ -1,12 +1,14 @@
 from rest_framework import viewsets
 from rest_framework import exceptions
 
-from orders.models import Order
+from orders.models import Order, OrderDetail
 from orders.serializers import (
     OrderRetrieveSerializer,
     OrderCreateSerializer,
     OrderDetailCreateSerializer,
-    OrderStatusRetrieveSerializer)
+    OrderStatusRetrieveSerializer,
+    OrderDetailUpdateSerializer
+)
 
 
 class OrderCreateListView(viewsets.ModelViewSet):
@@ -59,3 +61,8 @@ class OrderRetrieveView(viewsets.ReadOnlyModelViewSet):
 class OrderRetrieveStatusView(viewsets.ReadOnlyModelViewSet):
     serializer_class = OrderStatusRetrieveSerializer
     queryset = Order.objects.all()
+
+
+class OrderDetailsUpdateView(viewsets.ModelViewSet):
+    serializer_class = OrderDetailUpdateSerializer
+    queryset = OrderDetail.objects.all()

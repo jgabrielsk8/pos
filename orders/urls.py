@@ -27,4 +27,12 @@ urlpatterns = [
         }),
         name='retrieve-order-status'
     ),
+
+    path(
+        'detail/<int:pk>',
+        views.OrderDetailsUpdateView.as_view({
+            'put': 'update'
+        }),
+        name='update-order-details'
+    ),
 ]
