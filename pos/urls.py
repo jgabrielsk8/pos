@@ -21,5 +21,8 @@ urlpatterns = [
          include(('pizzas.urls', 'pizzas'), namespace='pizzas')),
 
     path('customers/',
-         include(('customers.urls', 'customers'), namespace='customers'))
+         include(('customers.urls', 'customers'), namespace='customers')),
+
+    path('orders/',
+         include(('orders.urls', 'orders'), namespace='orders')),
 ]

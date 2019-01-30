@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Apps
     'customers',
+    'orders',
     'pizzas',
 
     # Third party apps
