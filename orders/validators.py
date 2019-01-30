@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from orders.models import OrderDetail
+from orders.models import Order, OrderDetail
 
 
 class UniqueUpdateValidator(object):
@@ -9,7 +9,7 @@ class UniqueUpdateValidator(object):
 
     def set_context(self, serializer):
         """
-        Complete copy from rest_framework/validators :joy:
+        Code from rest_framework/validators :joy:
         This hook is called by the serializer instance,
         prior to the validation call being made.
         """
@@ -27,8 +27,8 @@ class UniqueUpdateValidator(object):
             if to_validate in unique_store:
                 raise serializers.ValidationError({
                     'pizza': (
-                        'Already added a pizza with this size, '
-                        'consider using quantity'
+                        u'Already added a pizza with this size, '
+                        u'consider using quantity'
                     )
                 })
             unique_store.append(to_validate)
@@ -40,9 +40,7 @@ class UniqueUpdateDBValidator(object):
 
     def set_context(self, serializer):
         """
-        Complete copy from rest_framework/validators :joy:
-        This hook is called by the serializer instance,
-        prior to the validation call being made.
+        Code from rest_framework/validators
         """
         # Determine the existing instance, if this is an update operation.
         self.instance = getattr(serializer, 'instance', None)
@@ -65,7 +63,40 @@ class UniqueUpdateDBValidator(object):
         if qs:
             raise serializers.ValidationError({
                 'pizza': (
-                    'Looks like this order already has this '
-                    'pizza and size.'
+                    u'Looks like this order already has this '
+                    u'pizza and size.'
+                )
+            })
+
+
+class UniqueUpdateStatusValidator(object):
+    instance = None
+    status_not_permited = [
+        Order.OUT_FOR_DELIVERY,
+        Order.DELIVERED,
+        Order.RETURNED
+    ]
+
+    def set_context(self, serializer):
+        """
+        Code from rest_framework/validators
+        """
+        # Determine the existing instance, if this is an update operation.
+        self.instance = getattr(serializer, 'instance', None)
+
+    def __call__(self, attrs):
+        """
+        Validate we are not updating a order detail that matches another
+        order detail from the same order, in that case we should update
+        the quantity from the original order detail.
+        """
+        order = self.instance.order
+        if order.status in self.status_not_permited:
+            raise serializers.ValidationError({
+                (
+                    u'This order is `{status}` and cannot be '
+                    u'updated at this moment'
+                ).format(
+                    status=order.get_status_display()
                 )
             })

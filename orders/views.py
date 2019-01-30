@@ -7,8 +7,8 @@ from orders.serializers import (
     OrderCreateSerializer,
     OrderDetailCreateSerializer,
     OrderStatusRetrieveSerializer,
-    OrderDetailUpdateSerializer
-)
+    OrderDetailUpdateSerializer,
+    OrderStatusUpdateSerializer)
 
 
 class OrderCreateListView(viewsets.ModelViewSet):
@@ -50,7 +50,7 @@ class OrderCreateListView(viewsets.ModelViewSet):
 
 class OrderRetrieveView(viewsets.ReadOnlyModelViewSet):
     """
-    View to list a specific order details.
+    View to get a specific order details.
 
     * for now, no authentication is required
     """
@@ -58,11 +58,38 @@ class OrderRetrieveView(viewsets.ReadOnlyModelViewSet):
     queryset = Order.objects.all()
 
 
-class OrderRetrieveStatusView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = OrderStatusRetrieveSerializer
+class OrderRetrieveUpdateStatusView(viewsets.ModelViewSet):
+    """
+    View to get or update a specific order details.
+
+    * for now, no authentication is required
+    """
+
+    queryset = Order.objects.all()
+
+    def get_serializer_class(self):
+        method = self.request.method
+        serializer_class = OrderRetrieveSerializer
+        if method == 'PUT':
+            serializer_class = OrderStatusUpdateSerializer
+        return serializer_class
+
+
+class OrderUpdateStatusView(viewsets.ModelViewSet):
+    """
+        View to update a specific order status.
+
+        * for now, no authentication is required
+        """
+    serializer_class = OrderStatusUpdateSerializer
     queryset = Order.objects.all()
 
 
 class OrderDetailsUpdateView(viewsets.ModelViewSet):
+    """
+        View to update a specific order details.
+
+        * for now, no authentication is required
+        """
     serializer_class = OrderDetailUpdateSerializer
     queryset = OrderDetail.objects.all()

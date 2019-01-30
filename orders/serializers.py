@@ -1,7 +1,11 @@
 from rest_framework import serializers
 from customers.serializers import CustomerSerializer
 from orders.models import Order, OrderDetail
-from orders.validators import UniqueUpdateValidator, UniqueUpdateDBValidator
+from orders.validators import (
+    UniqueUpdateValidator,
+    UniqueUpdateDBValidator,
+    UniqueUpdateStatusValidator
+)
 from pizzas.serializers import PizzaSerializer
 
 
@@ -32,6 +36,7 @@ class OrderDetailUpdateSerializer(serializers.ModelSerializer):
             'customer_details'
         )
     validators = [
+        UniqueUpdateStatusValidator(),
         UniqueUpdateDBValidator()
     ]
 
@@ -99,3 +104,13 @@ class OrderStatusRetrieveSerializer(serializers.ModelSerializer):
 
     def get_status(self, obj):
         return obj.get_status_display()
+
+
+class OrderStatusUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
+        fields = (
+            'id',
+            'status',
+        )

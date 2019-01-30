@@ -22,10 +22,11 @@ urlpatterns = [
 
     path(
         '<int:pk>/status',
-        views.OrderRetrieveStatusView.as_view({
-            'get': 'retrieve'
+        views.OrderRetrieveUpdateStatusView.as_view({
+            'get': 'retrieve',
+            'put': 'update'
         }),
-        name='retrieve-order-status'
+        name='retrieve-update-order-status'
     ),
 
     path(
