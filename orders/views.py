@@ -48,7 +48,7 @@ class OrderCreateListView(viewsets.ModelViewSet):
         order_details_serialized.save(order=order)
 
 
-class OrderRetrieveView(viewsets.ReadOnlyModelViewSet):
+class OrderRetrieveDeleteView(viewsets.ModelViewSet):
     """
     View to get a specific order details.
 
@@ -69,20 +69,10 @@ class OrderRetrieveUpdateStatusView(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         method = self.request.method
-        serializer_class = OrderRetrieveSerializer
+        serializer_class = OrderStatusRetrieveSerializer
         if method == 'PUT':
             serializer_class = OrderStatusUpdateSerializer
         return serializer_class
-
-
-class OrderUpdateStatusView(viewsets.ModelViewSet):
-    """
-        View to update a specific order status.
-
-        * for now, no authentication is required
-        """
-    serializer_class = OrderStatusUpdateSerializer
-    queryset = Order.objects.all()
 
 
 class OrderDetailsUpdateView(viewsets.ModelViewSet):
