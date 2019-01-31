@@ -14,7 +14,6 @@ from orders.serializers import (
 class OrderCreateListView(viewsets.ModelViewSet):
     """
     View to list all orders or create one.
-
     * for now, no authentication is required
     """
     queryset = Order.objects.all()
@@ -51,8 +50,7 @@ class OrderCreateListView(viewsets.ModelViewSet):
 
 class OrderRetrieveDeleteView(viewsets.ModelViewSet):
     """
-    View to get a specific order details.
-
+    View to get or delete a specific order details.
     * for now, no authentication is required
     """
     serializer_class = OrderRetrieveSerializer
@@ -62,7 +60,6 @@ class OrderRetrieveDeleteView(viewsets.ModelViewSet):
 class OrderRetrieveUpdateStatusView(viewsets.ModelViewSet):
     """
     View to get or update a specific order details.
-
     * for now, no authentication is required
     """
 
@@ -78,9 +75,8 @@ class OrderRetrieveUpdateStatusView(viewsets.ModelViewSet):
 
 class OrderDetailsUpdateView(viewsets.ModelViewSet):
     """
-        View to update a specific order details.
-
-        * for now, no authentication is required
-        """
+    View to update a specific order details.
+    * for now, no authentication is required
+    """
     serializer_class = OrderDetailUpdateSerializer
     queryset = OrderDetail.objects.all()
