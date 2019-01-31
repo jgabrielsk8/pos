@@ -213,5 +213,6 @@ curl -X GET \
 ## Run the tests
 
 ```
-docker run -e DJANGO_SETTINGS_MODULE='pos.settings.testing' -e DB_TEST_NAME=':memory:' pos-api:dev python manage.py test
+docker run -e DJANGO_SETTINGS_MODULE='pos.settings.testing' \
+	   -e DB_TEST_NAME=':memory:' pos-api:dev python manage.py test
 ```
