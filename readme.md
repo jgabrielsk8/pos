@@ -30,21 +30,20 @@ The first time will take a while, docker is downloading everything it needs to r
 
 ## How to hit the endpoints
 
-***Note replace data with the values you want.
 
 **Pizzas**
 
 * (List) - The app by default will have some test pizzas created. 
 
-`
+```
 curl -X GET \
   http://127.0.0.1:8000/pizzas/ \
   -H 'cache-control: no-cache'
-`
+```
 
 * (Create) - But you can also create new ones
 
-`
+```
 curl -X POST \
   http://127.0.0.1:8000/pizzas/ \
   -H 'Content-Type: application/json' \
@@ -53,11 +52,11 @@ curl -X POST \
 	"name": "Pepperoni 3",
 	"description": "Changed"
 }'
-`
+```
 
 * (Update) - And update them. **Note how you need to send the pizza id in the url.
 
-`
+```
 curl -X PUT \
   http://127.0.0.1:8000/pizzas/1 \
   -H 'Content-Type: application/json' \
@@ -66,23 +65,23 @@ curl -X PUT \
 	"name": "Pepperoni 3",
 	"description": "Changed"
 }'
-`
+```
 
 
 **Customers**
 
 * (List) - The app by default will have some test customers created. 
 
-`
+```
 curl -X GET \
   http://127.0.0.1:8000/customers/ \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
-`
+```
 
 * (Create) - But you can also create new ones
 
-`
+```
 curl -X POST \
   http://127.0.0.1:8000/customers/ \
   -H 'Content-Type: application/json' \
@@ -94,11 +93,11 @@ curl -X POST \
 	"phone": "9724653",
 	"email": "gg@mail.com"
 }'
-`
+```
 
 * (Update) - And update them. **Note how you need to send the pizza id in the url.
 
-`
+```
 curl -X PUT \
   http://127.0.0.1:8000/customers/1 \
   -H 'Content-Type: application/json' \
@@ -110,14 +109,14 @@ curl -X PUT \
     "phone": "345245",
     "email": "jd@mail.com"
 }'
-`
+```
 
 
 **Orders**
 
 * (Create) - We can create orders, beside the order data: (customer and number) we need to send the order details as a array of dicts.
 
-`
+```
 curl -X POST \
   http://127.0.0.1:8000/orders/ \
   -H 'Content-Type: application/json' \
@@ -140,29 +139,29 @@ curl -X POST \
         }
     ]
 }'
-`
+```
 
 * (List) - And we can list orders too
 
-`
+```
 curl -X GET \
   http://127.0.0.1:8000/orders/ \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache'
-`
+```
 
 * (List-Extended) - We can add extra search parameters like id, customer_id and status. We just need to pass the field_name and value as query params.
 
-`
+```
 curl -X GET \
   'http://127.0.0.1:8000/orders/?status=1' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache'
-`
+```
 
 * (Update) - We can only update the status of an order, to do so we issue this request.
 
-`
+```
 curl -X PUT \
   http://127.0.0.1:8000/orders/2/status \
   -H 'Content-Type: application/json' \
@@ -170,11 +169,11 @@ curl -X PUT \
   -d '{
 	"status": 3
 }'
-`
+```
 
 * (Update-Extended) - To update a orders detail we need to issue this request.
 
-`
+```
 curl -X PUT \
   http://127.0.0.1:8000/orders/detail/1 \
   -H 'Content-Type: application/json' \
@@ -185,35 +184,35 @@ curl -X PUT \
     "quantity": 1,
     "customer_details": "I want to add more cheese instead of jalapeños"
 }'
-`
+```
 
 * (Check Status) - We can track a orders status like this
 
-`
+```
 curl -X GET \
   http://127.0.0.1:8000/orders/1/status \
   -H 'cache-control: no-cache'
-`
+```
 
 * (Remove) - We can also delete a order
 
-`
+```
 curl -X DELETE \
   http://127.0.0.1:8000/orders/1 \
   -H 'cache-control: no-cache'
-`
+```
 
 * (GET) - Get the order by its identifier
 
-`
+```
 curl -X GET \
   http://127.0.0.1:8000/orders/2 \
   -H 'cache-control: no-cache'
-`
+```
 
 
-`
+```
 curl --request GET \
   --url http://127.0.0.1:8000/appointments \
   --header 'authorization: Bearer token'
-`
+```
