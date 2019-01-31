@@ -9,7 +9,7 @@ urlpatterns = [
             'get': 'list',
             'post': 'create'
         }),
-        name='list-orders'
+        name='create-list-orders'
     ),
 
     path(
