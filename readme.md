@@ -209,10 +209,3 @@ curl -X GET \
   http://127.0.0.1:8000/orders/2 \
   -H 'cache-control: no-cache'
 ```
-
-
-```
-curl --request GET \
-  --url http://127.0.0.1:8000/appointments \
-  --header 'authorization: Bearer token'
-```
