@@ -5,10 +5,18 @@ from customers import views
 urlpatterns = [
     path(
         '',
-        views.CustomerListView.as_view({
-            'get': 'list',
-            'post': 'create'
+        views.CustomerCreateListView.as_view({
+            'post': 'create',
+            'get': 'list'
         }),
-        name='list-customers'
+        name='create-list-customers'
+    ),
+
+    path(
+        '<int:pk>',
+        views.CustomerUpdateView.as_view({
+            'put': 'update',
+        }),
+        name='update-customers'
     )
 ]
