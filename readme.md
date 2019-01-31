@@ -50,7 +50,7 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -d '{
 	"name": "Pepperoni 3",
-	"description": "Changed"
+	"description": "new"
 }'
 ```
 
