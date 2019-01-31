@@ -3,14 +3,10 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from customers.models import Customer
+from customers.serializers import CustomerSerializer
 
 
-class AccountTests(APITestCase):
-    CUSTOMER_FIELDS_VALIDATION = '''{
-        "first_name": ["This field may not be blank."],
-        "address": ["This field may not be blank."],
-        "phone": ["This field may not be blank."]
-    }'''
+class CustomerTests(APITestCase):
 
     def test_create_customer_success(self):
         """
@@ -44,10 +40,12 @@ class AccountTests(APITestCase):
             'email': ''
         }
 
+        serialized_data = CustomerSerializer(data=data)
+
         response = self.client.post(url, data, format='json')
 
+        self.assertFalse(serialized_data.is_valid())
         self.assertJSONEqual(
-            response.content, self.CUSTOMER_FIELDS_VALIDATION)
-
+            response.content, serialized_data.errors)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(Customer.objects.count(), 0)

@@ -3,12 +3,10 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from pizzas.models import Pizza
+from pizzas.serializers import PizzaSerializer
 
 
 class PizzaTests(APITestCase):
-    PIZZA_FIELDS_VALIDATION = '''{
-        "name":["This field may not be blank."]
-    }'''
 
     def test_create_pizza_success(self):
         """
@@ -38,8 +36,10 @@ class PizzaTests(APITestCase):
 
         response = self.client.post(url, data, format='json')
 
-        self.assertJSONEqual(
-            response.content, self.PIZZA_FIELDS_VALIDATION)
+        serialized_data = PizzaSerializer(data=data)
 
+        self.assertFalse(serialized_data.is_valid())
+        self.assertJSONEqual(
+            response.content, serialized_data.errors)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(Pizza.objects.count(), 0)
