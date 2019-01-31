@@ -209,3 +209,7 @@ curl -X GET \
   http://127.0.0.1:8000/orders/2 \
   -H 'cache-control: no-cache'
 ```
+
+## Run the tests
+
+docker run -e DJANGO_SETTINGS_MODULE='pos.settings.testing' -e DB_TEST_NAME=':memory:' pos-api:dev python manage.py test

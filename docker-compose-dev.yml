@@ -12,6 +12,7 @@ services:
      ports:
        - "8000:8000"
      restart: unless-stopped
+     command: ['/usr/src/entrypoint-dev.sh']
      depends_on:
        - pos-db
      deploy:
