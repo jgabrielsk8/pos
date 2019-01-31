@@ -4,11 +4,20 @@ from customers.models import Customer
 from customers.serializers import CustomerSerializer
 
 
-class CustomerListView(viewsets.ModelViewSet):
+class CustomerCreateListView(viewsets.ModelViewSet):
     """
-        View to list all customers or create one.
+    View to create and list all customers.
+    * for now, no authentication is required
+    """
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+    filter_fields = ('id', 'first_name', 'phone', 'email', )
 
-        * for now, no authentication is required
+
+class CustomerUpdateView(viewsets.ModelViewSet):
+    """
+    View to update a customers.
+    * for now, no authentication is required
     """
     serializer_class = CustomerSerializer
     queryset = Customer.objects.all()
