@@ -10,7 +10,7 @@ Small project to test the Django Rest Framework Library.
 * [Django Rest Framework](https://www.django-rest-framework.org/) - Python Library to create RESTful API's
 * [Docker](https://www.docker.com/) - Tool designed to make it easier to create, deploy, and run applications by using containers
 
-## How to run this app (Docker)
+## How to run this app (Docker - Postgresql)
 
 To run this project you need to have Docker installed, you can get it from [here](https://www.docker.com/products/docker/)
 
@@ -28,8 +28,17 @@ If not, go inside the project and run `docker-compose -f docker-compose-dev.yml 
 The first time will take a while, docker is downloading everything it needs to run the project, be patient.
 
 
+## How to run this app (Locally - sqlite)
+* Please make sure you create a new virtualenv in my case I used pyenv-virtualenv with python 3.7.0 version, you can check
+it [here](https://github.com/pyenv/pyenv-virtualenv)
+* Please make sure to set enviroment variables you can find them in `local.env`
+* Run required libraries: `pip install -r requirements/dev.txt`
+* After that run `python manage.py runserver`
+* To run the tests you can run `python manage.py test --settings=pos.settings.testing`
+
 ## How to hit the endpoints
 
+I used curl to test the endpoints but using postman is a good alternative.
 
 **Pizzas**
 
@@ -76,7 +85,7 @@ curl -X PUT \
 curl -X GET \
   http://127.0.0.1:8000/customers/ \
   -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache' \
+  -H 'cache-control: no-cache'
 ```
 
 * (Create) - But you can also create new ones
