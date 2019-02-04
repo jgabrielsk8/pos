@@ -13,4 +13,4 @@ RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 
 RUN pip install -r requirements/dev.txt
 
-ENTRYPOINT $INSTALL_PATH'/entrypoint-dev.sh'
+# ENTRYPOINT $INSTALL_PATH'/entrypoint-dev.sh'
